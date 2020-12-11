@@ -1,0 +1,26 @@
+GET http://localhost:8080/cars
+
+###
+
+GET http://localhost:8080/cars/1
+
+###
+
+GET http://localhost:8080/cars/by-owner/1
+
+###
+
+POST http://localhost:8080/cars
+Content-Type: application/json
+
+{
+  "id": 0,
+  "ownerId": 2,
+  "name": "Lada",
+  "price": 3,
+  "city": "Kazan"
+}
+
+###
+
+DELETE http://localhost:8080/cars/3
