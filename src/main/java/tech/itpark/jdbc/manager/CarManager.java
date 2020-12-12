@@ -33,10 +33,10 @@ public class CarManager {
         );
     }
 
-    public List<Car> search(String name, String city) {
+    public List<Car> search(String model, String city) {
         return template.query(
                 "SELECT id, model, city, price FROM cars WHERE name = :name AND city = :city",
-                Map.of("model", name, "city", city),
+                Map.of("model", model, "city", city),
                 rowMapper
         );
     }
