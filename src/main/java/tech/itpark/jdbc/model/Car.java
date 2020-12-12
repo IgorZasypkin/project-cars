@@ -5,8 +5,7 @@ import lombok.Value;
 @Value
 public class Car {
     long id;
-    long ownerId;
-    String name;
+    String model;
     int price;
     String city;
 }

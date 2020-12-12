@@ -27,7 +27,7 @@ public class CarManager {
 
     public Car getById(long id) {
         return template.queryForObject(
-                "SELECT id, owner_id,name, city, price FROM cars WHERE id = :id",
+                "SELECT id, model, city, price FROM cars WHERE id = :id",
                 Map.of("id", id),
                 rowMapper
         );
@@ -35,28 +35,19 @@ public class CarManager {
 
     public List<Car> search(String name, String city) {
         return template.query(
-                "SELECT id, owner_id,name, city, price FROM cars WHERE name = :name AND city = :city",
+                "SELECT id, model, city, price FROM cars WHERE name = :name AND city = :city",
                 Map.of("name", name, "city", city),
                 rowMapper
         );
     }
 
-    public List<Car> getByOwnerId(long ownerId) {
-        return template.query(
-                "SELECT id, owner_id,name, city, price FROM cars WHERE owner_id = :owner_id",
-                Map.of("owner_id", ownerId),
-                rowMapper
-        );
-    }
-
-    public Car save(Car item) {
+       public Car save(Car item) {
         if (item.getId() == 0) {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(
-                    "INSERT INTO Cars(owner_id, name, price, city) VALUES (:owner_id, :name, :price, :city)",
+                    "INSERT INTO Cars(model, price, city) VALUES (:model, :price, :city)",
                     new MapSqlParameterSource(Map.of(
-                            "owner_id", item.getOwnerId(),
-                            "name", item.getName(),
+                            "model", item.getModel(),
                             "price", item.getPrice(),
                             "city", item.getCity()
                     )),
@@ -67,11 +58,10 @@ public class CarManager {
         }
 
         template.update(
-                "UPDATE Cars SET owner_id = :owner_id, name = :name, price = :price, city = :city WHERE id = :id",
+                "UPDATE Cars SET model = :model, price = :price, city = :city WHERE id = :id",
                 Map.of(
                         "id", item.getId(),
-                        "owner_id", item.getOwnerId(),
-                        "name", item.getName(),
+                        "model", item.getModel(),
                         "price", item.getPrice(),
                         "city", item.getCity()
                 )

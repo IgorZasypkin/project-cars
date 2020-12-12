@@ -25,16 +25,11 @@ public class CarController {
     }
 
     @GetMapping("/search")
-    public List<Car> search(@RequestParam String name, @RequestParam String city) {
-        return manager.search(name, city);
+    public List<Car> search(@RequestParam String  model, @RequestParam String city) {
+        return manager.search(model, city);
     }
 
-    @GetMapping("/by-owner/{ownerId}")
-    public List<Car> getByOwnerId(@PathVariable long ownerId) {
-        return manager.getByOwnerId(ownerId);
-    }
-
-    @PostMapping
+        @PostMapping
     public Car save(@RequestBody Car item) {
         return manager.save(item);
     }
